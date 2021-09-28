@@ -25,7 +25,7 @@ async def img2pdf(bot: Client, msg: Message):
             image_converting[user_id] = False
             paths = [directory + file for file in os.listdir(directory)]
             await images_to_pdf(paths, output)
-            await msg.reply_document(output, caption=f"Converted {len(paths)} images to PDF \n\nBy @StarkBots")
+            await msg.reply_document(output, caption=f"Converted {len(paths)} images to PDF \n\nBy @JNS_BOTS")
             break
         elif not image_msg.photo:
             image_msg = await bot.ask(user_id, "This is not an image. Please send an image or /cancel.", reply_to_message_id=image_msg.message_id)
