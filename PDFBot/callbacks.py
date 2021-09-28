@@ -86,7 +86,7 @@ async def _callbacks(bot: Client, callback_query: CallbackQuery):
                 await rotate_pdf(pdf, output, direction)
             else:
                 await rotate_pdf(pdf, output, direction, numbers=pages)
-            await callback_query.message.reply_document(output, caption=f"Rotated by @StarkBots")
+            await callback_query.message.reply_document(output, caption=f"Rotated by @JNS_BOTS")
         elif query == "decrypt":
             await callback_query.answer()
             data = await bot.ask(user_id, "Please provide the original password for decryption.")
@@ -103,7 +103,7 @@ async def _callbacks(bot: Client, callback_query: CallbackQuery):
                     if await cancelled(data):
                         return
                     success = await decrypt_pdf(pdf, output, data.text)
-            await callback_query.message.reply_document(output, quote=True, caption=f"Decrypted by @StarkBots")
+            await callback_query.message.reply_document(output, quote=True, caption=f"Decrypted by @JNS_BOTS")
             os.remove(pdf)
             os.remove(output)
         elif query == "encrypt":
@@ -114,7 +114,7 @@ async def _callbacks(bot: Client, callback_query: CallbackQuery):
             pdf = await get_pdf(user_id)
             output = output_prefix+"encrypted.pdf"
             await encrypt_pdf(pdf, output, data.text)
-            await callback_query.message.reply_document(output, quote=True, caption=f"Encrypted with password : `{data.text}` \n\nBy @StarkBots")
+            await callback_query.message.reply_document(output, quote=True, caption=f"Encrypted with password : `{data.text}` \n\nBy @JNS_BOTS")
         elif query == "merge":
             merging[user_id] = True
             await callback_query.answer()
@@ -136,7 +136,7 @@ async def _callbacks(bot: Client, callback_query: CallbackQuery):
                     status = await new_pdf_msg.reply("Merging and Uploading...", quote=True)
                     paths = [directory+'/'+file for file in os.listdir(directory)]
                     await merge_pdfs(paths, output)
-                    await callback_query.message.reply_document(output, caption=f"Merged {len(paths)} PDFs \n\nBy @StarkBots")
+                    await callback_query.message.reply_document(output, caption=f"Merged {len(paths)} PDFs \n\nBy @JNS_BOTS")
                     await status.delete()
                     break
                 elif new_pdf_msg.document:
@@ -192,7 +192,7 @@ async def _callbacks(bot: Client, callback_query: CallbackQuery):
                     await callback_query.message.reply("A provided page number doesn't exist. Cancelling.")
                 else:
                     to = f"{pages[0]} to {pages[-1]}" if not len(pages) == 1 else pages[0]
-                    caption = f"Split File {list(files.keys()).index(file)+1} \n\nPages {to} \nTotal Pages : {len(pages)} \n\nBy @StarkBots"
+                    caption = f"Split File {list(files.keys()).index(file)+1} \n\nPages {to} \nTotal Pages : {len(pages)} \n\nBy @JNS_BOTS"
                     await callback_query.message.reply_document(file, caption=caption)
     except TimeoutError:
         merging[user_id] = False
